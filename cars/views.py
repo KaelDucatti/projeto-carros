@@ -1,12 +1,17 @@
 from django.shortcuts import render
-from cars.models import Car
+from .models import Car
 
 
 def cars_view(request):
-    cars = Car.objects.filter(model__contains='v')
+    cars = Car.objects.all()
+
+    search = request.GET.get("search")
+    if search:
+        cars = cars.filter(model__contains=search)
+
 
     return render(
         request, 
-        "cars.html", 
-        {"cars": cars}
-    )
+        template_name="cars.html", 
+        context={"cars": cars}
+    )   
