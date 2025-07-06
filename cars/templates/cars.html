@@ -1,3 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Carros{% endblock %}
+
+{% block header %}
+  <h1>Carros Disponíveis</h1>
+{% endblock %}
+
 {% block content %}
   <style>
     .car-grid {
@@ -91,7 +99,7 @@
     }
   </style>
 
-  <form method="GET" action="{% url 'cars' %}">
+  <form method="GET" action="{% url 'cars_list' %}">
     <input type="text" name="search" placeholder="Buscar carro...">
     <button type="submit">Buscar</button>
   </form>

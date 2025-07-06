@@ -7,7 +7,7 @@ from cars.views import cars_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cars/', cars_view, name='cars')
+    path('cars/', cars_view, name='cars_list')
 ]
 
 if settings.DEBUG:
