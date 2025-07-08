@@ -3,37 +3,37 @@ from .models import Brand
 from .models import Car
 
 
-class CarForm(forms.Form):
-    model = forms.CharField(max_length=200, required=True)
-    brand = forms.ModelChoiceField(
-        queryset=Brand.objects.all().order_by("name"),
-        required=True,
-        empty_label="Selecione uma marca",
-    )
-    factory_year = forms.IntegerField(required=False)
-    model_year = forms.IntegerField(required=False)
-    plate = forms.CharField(max_length=10, required=False)
-    price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
-    image = forms.ImageField(required=False)
+class CarForm(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = "__all__"
 
-    def save(self):
-        car = Car(
-            model=self.cleaned_data["model"],
-            brand=self.cleaned_data["brand"],
-            factory_year=self.cleaned_data["factory_year"],
-            model_year=self.cleaned_data["model_year"],
-            plate=self.cleaned_data["plate"],
-            price=self.cleaned_data["price"],
-            image=self.cleaned_data["image"],
-        )
-        car.save()
-        return car
+    def clean_price(self):
+        price = self.cleaned_data.get("price")
+        if price and price < 20000:
+            self.add_error("price", "O preço não pode ser menor que R$ 20.000,00.")
+        return price
+
+    def clean_model_year(self):
+        model_year = self.cleaned_data.get("model_year")
+        if model_year and model_year < 1886:
+            self.add_error("model_year", "O ano do modelo não pode ser menor que 1886.")
+        return model_year
+
+    def clean(self):
+        cleaned_data = super().clean()
+        model_year = cleaned_data.get("model_year")
+        factory_year = cleaned_data.get("factory_year")
+        if model_year and factory_year:
+            if model_year > factory_year:
+                self.add_error(
+                    "factory_year",
+                    "O ano de frabicação não pode ser maior que o ano do modelo.",
+                )
+        return cleaned_data
 
 
-class BrandForm(forms.Form):
-    name = forms.CharField(max_length=255, required=True)
-
-    def save(self):
-        brand = Brand(name=self.cleaned_data.get("name"))
-        brand.save()
-        return brand
+class BrandForm(forms.ModelForm):
+    class Meta:
+        model = Brand
+        fields = "__all__"
