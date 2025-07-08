@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Nova Marca
+{% endblock title %}
+
+{% block content %}
+    <h1>Nova Marca</h1>
+    <form method="POST" enctype="application/x-www-form-urlencoded">
+        {% csrf_token %}
+
+        {% if new_brand_form.errors %}
+            <div class="alert alert-danger">
+                {{ new_brand_form.errors.as_ul }}
+            </div>
+        {% endif %}
+
+        <table>
+            {{ new_brand_form.as_table }}
+        </table>
+
+        <input type="submit" value="Cadastrar" class="btn btn-primary">
+    </form>
+{% endblock content %}
