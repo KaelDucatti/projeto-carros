@@ -37,3 +37,11 @@ class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
         fields = "__all__"
+
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        brand_validation = Brand.objects.filter(name__iexact=name) or None
+
+        if brand_validation:
+            self.add_error("name", "Já existe uma marca com esse nome.")
+        return name

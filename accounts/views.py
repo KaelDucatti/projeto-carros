@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -7,11 +7,7 @@ def new_user_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(
-                request,
-                template_name="new_user_success.html",
-                context={"user_data": form},
-            )
+            return redirect("login")
     else:
         form = UserCreationForm()
     return render(
