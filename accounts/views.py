@@ -1,5 +1,5 @@
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 
 
 def new_user_view(request):
@@ -13,3 +13,11 @@ def new_user_view(request):
     return render(
         request, template_name="new_user.html", context={"new_user_form": form}
     )
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm()
+    else:
+        form = AuthenticationForm()
+    return render(request, template_name="login.html", context={"login_form": form})
