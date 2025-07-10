@@ -1,5 +1,6 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.shortcuts import redirect, render
 
 
 def new_user_view(request):
@@ -17,7 +18,11 @@ def new_user_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        form = AuthenticationForm()
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("cars_list")
     else:
         form = AuthenticationForm()
     return render(request, template_name="login.html", context={"login_form": form})
