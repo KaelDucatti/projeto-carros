@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{% endblock %}</title>
-  <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <style>
     body {
         font-family: 'Open Sans', sans-serif;
         background-color: #f7f7f7;
@@ -66,34 +68,45 @@
         background-color: #999;
     }
 
-  </style>
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        {% if user.is_authenticated %}
-          <li>Olá, {{ user.username }}!</li>
-          <li><a href="{% url 'cars_list' %}">Carros</a></li>
-          <li><a href="{% url 'create_car' %}">Novo Carro</a></li>
-          <li><a href="{% url 'create_brand' %}">Novo Marca</a></li>
-          <li><a href="{% url 'logout' %}">Logout</a></li>
-        {% else %}
-          <li><a href="{% url 'cars_list' %}">Carros</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'create_user' %}">Regitrar-se</a></li>
-        {% endif %}
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-
-  <footer>
-    <p>&copy; 2025, Mikael Ducatti</p>
-  </footer>
-</body>
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li>Olá, {{ user.username }}!</li>
+                        <li>
+                            <a href="{% url 'cars_list' %}">Carros</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'create_car' %}">Novo Carro</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'create_brand' %}">Novo Marca</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'cars_list' %}">Carros</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'create_user' %}">Regitrar-se</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2025, Mikael Ducatti</p>
+        </footer>
+    </body>
 </html>
