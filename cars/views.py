@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+
+from .forms import BrandForm, CarForm
 from .models import Car
-from .forms import CarForm, BrandForm
 
 
 def cars_view(request):

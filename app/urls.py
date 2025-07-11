@@ -1,10 +1,10 @@
-from django.contrib import admin
-from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from cars.views import cars_view, new_car_view, new_brand_view
-from accounts.views import new_user_view, login_view, logout_view
+from django.contrib import admin
+from django.urls import path
 
+from accounts.views import login_view, logout_view, new_user_view
+from cars.views import cars_view, new_brand_view, new_car_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
