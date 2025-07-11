@@ -94,20 +94,17 @@ max-complexity = 10
 
 [tool.ruff.lint.isort]
 # Configuração do isort
-known-django = ["django"]
+known-third-party = ["django"]
 known-first-party = ["projeto_carros"]
 section-order = [
     "future",
     "standard-library", 
     "third-party",
-    "django",
     "first-party",
     "local-folder"
 ]
 
-[tool.ruff.lint.flake8-django]
-# Configuração específica do Django
-django-settings-module = "projeto_carros.settings"
+
 
 [tool.ruff.format]
 # Configuração do formatter
