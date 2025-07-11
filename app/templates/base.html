@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,11 +72,17 @@
   <header>
     <nav>
       <ul>
-        <li><a href="{% url 'cars_list' %}">Carros</a></li>
-        <li><a href="{% url 'new_car' %}">Novo Carro</a></li>
-        <li><a href="{% url 'new_brand' %}">Novo Marca</a></li>
-        <li><a href="{% url 'new_user' %}">Novo Usuário</a></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% if user.is_authenticated %}
+          <li>Olá, {{ user.username }}!</li>
+          <li><a href="{% url 'cars_list' %}">Carros</a></li>
+          <li><a href="{% url 'new_car' %}">Novo Carro</a></li>
+          <li><a href="{% url 'new_brand' %}">Novo Marca</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'cars_list' %}">Carros</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'new_user' %}">Regitrar-se</a></li>
+        {% endif %}
       </ul>
     </nav>
   </header>
