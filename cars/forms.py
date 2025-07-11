@@ -37,7 +37,7 @@ class CarForm(forms.ModelForm):
         if model_year and factory_year and model_year > factory_year:
             self.add_error(
                 "factory_year",
-                "O ano de frabicação não pode ser maior que o ano do modelo.",
+                "O ano de frabicação não pode ser menor que o ano do modelo.",
             )
         return cleaned_data
 

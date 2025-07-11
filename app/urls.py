@@ -3,17 +3,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from accounts.views import login_view, logout_view, new_user_view
-from cars.views import CarsView, new_brand_view, new_car_view
+from accounts.views import CreateUserView, LoginView, LogoutView
+from cars.views import CarsView, CreateBrandView, CreateCarView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("cars/", CarsView.as_view(), name="cars_list"),
-    path("login/", login_view, name="login"),
-    path("logout/", logout_view, name="logout"),
-    path("new_car/", new_car_view, name="new_car"),
-    path("new_brand/", new_brand_view, name="new_brand"),
-    path("new_user/", new_user_view, name="new_user"),
+    path("", CarsView.as_view(), name="cars_list"),
+    path("create_brand/", CreateBrandView.as_view(), name="create_brand"),
+    path("create_car/", CreateCarView.as_view(), name="create_car"),
+    path("create_user/", CreateUserView.as_view(), name="create_user"),
+    path("login/", LoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]
 
 if settings.DEBUG:

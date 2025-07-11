@@ -5,15 +5,11 @@ from .forms import BrandForm, CarForm
 from .models import Car
 
 
-def cars_view(request):
-    cars = Car.objects.all().order_by("-brand", "model")
-    search = request.GET.get("search")
-    if search:
-        cars = cars.filter(model__icontains=search)
-    return render(request, template_name="cars.html", context={"cars": cars})
-
-
 class CarsView(View):
+    """
+    View to list all cars, with optional search functionality.
+    """
+
     def get(self, request):
         cars = Car.objects.all().order_by("-brand", "model")
         search = request.GET.get("search")
@@ -22,25 +18,43 @@ class CarsView(View):
         return render(request, template_name="cars.html", context={"cars": cars})
 
 
-def new_car_view(request):
-    if request.method == "POST":
+class CreateCarView(View):
+    """
+    View to handle the creation of a new car.
+    """
+
+    def get(self, request):
+        form = CarForm()
+        return render(
+            request, template_name="create_car.html", context={"new_car_form": form}
+        )
+
+    def post(self, request):
         form = CarForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("cars_list")
-    else:
-        form = CarForm()
-    return render(request, template_name="new_car.html", context={"new_car_form": form})
+        return render(
+            request, template_name="create_car.html", context={"new_car_form": form}
+        )
 
 
-def new_brand_view(request):
-    if request.method == "POST":
+class CreateBrandView(View):
+    """
+    View to handle the creation of a new car brand.
+    """
+
+    def get(self, request):
+        form = BrandForm()
+        return render(
+            request, template_name="create_brand.html", context={"new_brand_form": form}
+        )
+
+    def post(self, request):
         form = BrandForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("cars_list")
-    else:
-        form = BrandForm()
-    return render(
-        request, template_name="new_brand.html", context={"new_brand_form": form}
-    )
+        return render(
+            request, template_name="create_brand.html", context={"new_brand_form": form}
+        )

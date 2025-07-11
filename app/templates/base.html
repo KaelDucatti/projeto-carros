@@ -75,13 +75,13 @@
         {% if user.is_authenticated %}
           <li>Olá, {{ user.username }}!</li>
           <li><a href="{% url 'cars_list' %}">Carros</a></li>
-          <li><a href="{% url 'new_car' %}">Novo Carro</a></li>
-          <li><a href="{% url 'new_brand' %}">Novo Marca</a></li>
+          <li><a href="{% url 'create_car' %}">Novo Carro</a></li>
+          <li><a href="{% url 'create_brand' %}">Novo Marca</a></li>
           <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
           <li><a href="{% url 'cars_list' %}">Carros</a></li>
           <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'new_user' %}">Regitrar-se</a></li>
+          <li><a href="{% url 'create_user' %}">Regitrar-se</a></li>
         {% endif %}
       </ul>
     </nav>

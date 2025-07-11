@@ -9,12 +9,6 @@
     <form method="POST" enctype="application/x-www-form-urlencoded">
         {% csrf_token %}
 
-        {% if new_brand_form.errors %}
-            <div class="alert alert-danger">
-                {{ new_brand_form.errors.as_ul }}
-            </div>
-        {% endif %}
-
         <table>
             {{ new_brand_form.as_table }}
         </table>
