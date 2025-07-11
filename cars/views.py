@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.views import View
 
 from .forms import BrandForm, CarForm
 from .models import Car
@@ -10,6 +11,15 @@ def cars_view(request):
     if search:
         cars = cars.filter(model__icontains=search)
     return render(request, template_name="cars.html", context={"cars": cars})
+
+
+class CarsView(View):
+    def get(self, request):
+        cars = Car.objects.all().order_by("-brand", "model")
+        search = request.GET.get("search")
+        if search:
+            cars = cars.filter(model__icontains=search)
+        return render(request, template_name="cars.html", context={"cars": cars})
 
 
 def new_car_view(request):
