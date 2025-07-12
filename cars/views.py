@@ -1,21 +1,26 @@
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views.generic.list import ListView
 
 from .forms import BrandForm, CarForm
 from .models import Car
 
 
-class CarsView(View):
+class CarsListView(ListView):
     """
-    View to list all cars, with optional search functionality.
+    ListView to display all cars.
     """
 
-    def get(self, request):
-        cars = Car.objects.all().order_by("-brand", "model")
-        search = request.GET.get("search")
+    model = Car
+    template_name = "cars.html"
+    context_object_name = "cars"
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by("brand__name")
+        search = self.request.GET.get("search")
         if search:
-            cars = cars.filter(model__icontains=search)
-        return render(request, template_name="cars.html", context={"cars": cars})
+            queryset = queryset.filter(model__icontains=search)
+        return queryset
 
 
 class CreateCarView(View):
