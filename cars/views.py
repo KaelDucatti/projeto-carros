@@ -1,9 +1,10 @@
-from django.shortcuts import redirect, render
-from django.views import View
+from django.urls import reverse_lazy
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .forms import BrandForm, CarForm
-from .models import Car
+from .models import Brand, Car
 
 
 class CarsListView(ListView):
@@ -23,43 +24,44 @@ class CarsListView(ListView):
         return queryset
 
 
-class CreateCarView(View):
+class CreateCarView(CreateView):
     """
-    View to handle the creation of a new car.
-    """
-
-    def get(self, request):
-        form = CarForm()
-        return render(
-            request, template_name="create_car.html", context={"new_car_form": form}
-        )
-
-    def post(self, request):
-        form = CarForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect("cars_list")
-        return render(
-            request, template_name="create_car.html", context={"new_car_form": form}
-        )
-
-
-class CreateBrandView(View):
-    """
-    View to handle the creation of a new car brand.
+    CreateView to add a new car.
     """
 
-    def get(self, request):
-        form = BrandForm()
-        return render(
-            request, template_name="create_brand.html", context={"new_brand_form": form}
-        )
+    model = Car
+    form_class = CarForm
+    template_name = "create_car.html"
+    success_url = reverse_lazy("cars_list")
 
-    def post(self, request):
-        form = BrandForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("cars_list")
-        return render(
-            request, template_name="create_brand.html", context={"new_brand_form": form}
-        )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["new_car_form"] = context["form"]
+        return context
+
+
+class CarsDetailView(DetailView):
+    model = Car
+    template_name = "cars_detail.html"
+
+
+class UpdateCarView(UpdateView): ...
+
+
+class CarDeleteView(DeleteView): ...
+
+
+class CreateBrandView(CreateView):
+    """
+    CreateView to add a new car brand.
+    """
+
+    model = Brand
+    form_class = BrandForm
+    template_name = "create_brand.html"
+    success_url = reverse_lazy("cars_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["new_brand_form"] = context.get("form")
+        return context
