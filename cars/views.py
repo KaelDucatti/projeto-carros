@@ -43,6 +43,7 @@ class CreateCarView(CreateView):
 class CarsDetailView(DetailView):
     model = Car
     template_name = "cars_details.html"
+    context_object_name = "car"
 
 
 class UpdateCarView(UpdateView): ...
