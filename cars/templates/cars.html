@@ -95,29 +95,31 @@
     background-color: #108eb8;
   }
     </style>
+    
     <form method="GET" action="{% url 'cars_list' %}">
-        <input type="text" name="search" placeholder="Buscar carro..." />
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Buscar carro..." 
+            value="{{ request.GET.search }}"
+        />
         <button type="submit">Buscar</button>
     </form>
+
     <div class="car-grid">
-        {% if cars %}
-            {% for car in cars %}
-                <div class="car-card">
-                    {% if car.image %}
-                            <a href="{% url 'cars_details' pk=car.pk %}" class="btn btn-primary">
-                                <img src="{{ car.image.url }}" alt="{{ car.model }} - {{ car.brand }}" />
-                            </a>
-                    {% else %}
-                        <a href="{% url 'cars_details' pk=car.pk %}" class="btn btn-primary">
-                            <img src="/static/images/no-image.png" alt="Sem imagem" />
-                        </a>
-                    {% endif %}
-                    <h2>{{ car.brand }} {{ car.model }}</h2>
-                    <p>{{ car.factory_year }} - R$ {{ car.price }}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p class="no-results">Nenhum carro encontrado.</p>
-        {% endif %}
+        {% for car in cars %}    
+            <div class="car-card">
+                <a href="{% url 'cars_details' pk=car.pk %}">
+                    <img
+                        src="{{car.image.url|default:'/static/images/no-image.png'}}"
+                        alt="{{ car.brand}} - {{ car.model }}"
+                    />
+                </a>
+                <h2>{{ car.brand }} {{ car.model }}</h2>
+                <p>{{ car.factory_year }} - R$ {{ car.price }}</p>
+            </div>
+        {% empty %}
+            <p class="no-results">Nenhum carro encontrado</p>
+        {% endfor %}
     </div>
 {% endblock %}

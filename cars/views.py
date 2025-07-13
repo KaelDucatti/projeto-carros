@@ -24,6 +24,16 @@ class CarsListView(ListView):
         return queryset
 
 
+class CarsDetailView(DetailView):
+    """
+    DetailView to display a specific car's details.
+    """
+
+    model = Car
+    template_name = "cars_details.html"
+    context_object_name = "car"
+
+
 class CreateCarView(CreateView):
     """
     CreateView to add a new car.
@@ -38,12 +48,6 @@ class CreateCarView(CreateView):
         context = super().get_context_data(**kwargs)
         context["new_car_form"] = context["form"]
         return context
-
-
-class CarsDetailView(DetailView):
-    model = Car
-    template_name = "cars_details.html"
-    context_object_name = "car"
 
 
 class UpdateCarView(UpdateView): ...
