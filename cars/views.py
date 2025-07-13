@@ -42,7 +42,7 @@ class CreateCarView(CreateView):
 
 class CarsDetailView(DetailView):
     model = Car
-    template_name = "cars_detail.html"
+    template_name = "cars_details.html"
 
 
 class UpdateCarView(UpdateView): ...

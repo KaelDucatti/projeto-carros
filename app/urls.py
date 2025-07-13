@@ -9,7 +9,7 @@ from cars.views import CarsDetailView, CarsListView, CreateBrandView, CreateCarV
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", CarsListView.as_view(), name="cars_list"),
-    path("car/<int:pk>/", CarsDetailView.as_view(), name="cars_detail"),
+    path("car/<int:pk>/", CarsDetailView.as_view(), name="cars_details"),
     path("create_brand/", CreateBrandView.as_view(), name="create_brand"),
     path("create_car/", CreateCarView.as_view(), name="create_car"),
     path("create_user/", CreateUserView.as_view(), name="create_user"),
