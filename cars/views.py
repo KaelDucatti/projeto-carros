@@ -30,7 +30,7 @@ class CarsDetailView(DetailView):
     """
 
     model = Car
-    template_name = "cars_details.html"
+    template_name = "car_detail.html"
     context_object_name = "car"
 
 
@@ -50,7 +50,20 @@ class CreateCarView(CreateView):
         return context
 
 
-class UpdateCarView(UpdateView): ...
+class UpdateCarView(UpdateView):
+    """
+    UpdateView to update a car.
+    """
+
+    model = Car
+    form_class = CarForm
+    template_name = "update_car.html"
+    success_url = reverse_lazy("cars_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["update_car_form"] = context["form"]
+        return context
 
 
 class CarDeleteView(DeleteView): ...

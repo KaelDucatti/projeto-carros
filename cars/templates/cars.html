@@ -109,7 +109,7 @@
     <div class="car-grid">
         {% for car in cars %}    
             <div class="car-card">
-                <a href="{% url 'cars_details' pk=car.pk %}">
+                <a href="{% url 'car_detail' pk=car.pk %}">
                     {% if car.image %}    
                         <img
                             src="{{ car.image.url }}"

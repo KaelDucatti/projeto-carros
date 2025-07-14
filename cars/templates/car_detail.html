@@ -78,7 +78,7 @@
     a {
       text-decoration: none !important;
     }
-    </style>
+  </style>
     <div class="car-card">
         {% if car.image %}
             <img src="{{ car.image.url }}" alt="{{ car.model }} - {{ car.brand }}">
@@ -91,8 +91,8 @@
         <p><strong>Placa:</strong> {{ car.plate }}</p> 
         <p><strong>Preço:</strong> R$ {{ car.price }}</p>
     </div>
-  {% comment %} <div class="buttons-container">
+  <div class="buttons-container">
       <a href="{% url 'car_update' pk=car.pk %}" class="btn btn-primary">Editar</a>
-      <a href="{% url 'car_delete' pk=car.pk %}" class="btn btn-danger">Deletar</a>
-  </div> {% endcomment %}
+      {% comment %} <a href="{% url 'car_delete' pk=car.pk %}" class="btn btn-danger">Deletar</a> {% endcomment %}
+  </div>
 {% endblock %}
