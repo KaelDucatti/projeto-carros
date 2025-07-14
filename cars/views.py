@@ -65,8 +65,23 @@ class UpdateCarView(UpdateView):
         context["update_car_form"] = context["form"]
         return context
 
+    def get_success_url(self, **kwargs):
+        return reverse_lazy("car_detail", kwargs={"pk": self.object.pk})
 
-class CarDeleteView(DeleteView): ...
+
+class DeleteCarView(DeleteView):
+    """
+    DeleteView to delete a car.
+    """
+
+    model = Car
+    template_name = "delete_car.html"
+    success_url = reverse_lazy("cars_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["car"] = self.object
+        return context
 
 
 class CreateBrandView(CreateView):

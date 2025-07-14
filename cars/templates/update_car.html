@@ -4,8 +4,55 @@
     Update Car
 {% endblock title %}
 
-<h1>Atualizar Carro</h1>
 {% block content %}
+    <style>
+      .buttons-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #0096c7;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        margin: 0 10px;
+      }
+
+      .btn:hover {
+        background-color: #108eb8;
+      }
+
+      .btn-danger {
+        background-color: #d9534f;
+        text-decoration: none !important;
+      }
+
+      .btn-danger:hover {
+        background-color: #d2221c;
+      }
+
+      a {
+        text-decoration: none !important;
+      }
+
+      .confirmation-title {
+        text-align: center;
+        color: #d9534f;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+    </style>
+
+    <h1>Atualizar Carro</h1>
+    
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -13,6 +60,9 @@
             {{ update_car_form.as_table }}
         </table>
         
-        <input type="submit" value="Atualizar Carro" class="btn btn-primary">
+        <div class="buttons-container">
+            <input type="submit" value="Atualizar" class="btn btn-danger">
+            <a href="{% url 'car_detail' pk=object.pk %}" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
 {% endblock content %}
