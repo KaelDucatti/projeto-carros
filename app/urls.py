@@ -15,9 +15,9 @@ from cars.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", LoginView.as_view(), name="login"),
+    path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
-    path("cars/", CarsListView.as_view(), name="cars_list"),
+    path("", CarsListView.as_view(), name="cars_list"),
     path("car/create/", CreateCarView.as_view(), name="create_car"),
     path("car/<int:pk>/", CarsDetailView.as_view(), name="car_detail"),
     path("car/<int:pk>/update/", UpdateCarView.as_view(), name="car_update"),

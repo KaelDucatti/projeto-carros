@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -34,6 +36,7 @@ class CarsDetailView(DetailView):
     context_object_name = "car"
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class CreateCarView(CreateView):
     """
     CreateView to add a new car.
@@ -50,6 +53,7 @@ class CreateCarView(CreateView):
         return context
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class UpdateCarView(UpdateView):
     """
     UpdateView to update a car.
@@ -69,6 +73,7 @@ class UpdateCarView(UpdateView):
         return reverse_lazy("car_detail", kwargs={"pk": self.object.pk})
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class DeleteCarView(DeleteView):
     """
     DeleteView to delete a car.
@@ -84,6 +89,7 @@ class DeleteCarView(DeleteView):
         return context
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class CreateBrandView(CreateView):
     """
     CreateView to add a new car brand.

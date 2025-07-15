@@ -11,15 +11,9 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "djlint>=1.36.4",
+    "jedi>=0.19.2",
     "ruff>=0.12.2",
 ]
-
-[tool.djlint]
-profile = "django"
-indent = 4
-max_line_length = 88
-format_attribute_template_tags = true
 
 [tool.ruff]
 # Configurações gerais
