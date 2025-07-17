@@ -6,7 +6,7 @@ class Brand(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Car(models.Model):
@@ -21,3 +21,22 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.factory_year})"
+
+
+class CarInvertory(models.Model):
+    """
+    Model of CarInventory table
+    """
+
+    id = models.AutoField(primary_key=True)
+    cars_count = models.IntegerField()
+    cars_value = models.DecimalField(
+        max_digits=20, decimal_places=2, blank=True, null=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return f"{self.cars_count} {self.cars_value} ({self.created_at})"
