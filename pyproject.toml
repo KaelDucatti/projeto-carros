@@ -11,7 +11,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "jedi>=0.19.2",
+    "pyright>=1.1.403",
     "ruff>=0.12.2",
 ]
 
@@ -45,8 +45,10 @@ exclude = [
     "node_modules",
     "venv",
     "migrations",  # Exclui arquivos de migração do Django
-    "**/*.html",   # ← Adicione esta linha
-    "templates",   # ← Adicione esta linha se usar pasta templates
+    "**/*.html",
+    "templates",
+    "static",      # Adicional: exclui arquivos estáticos
+    "media",       # Adicional: exclui arquivos de media
 ]
 
 [tool.ruff.lint]
@@ -87,8 +89,16 @@ ignore = [
     "S105",   # Permite hardcoded passwords em settings
     "S106",   # Permite hardcoded passwords em settings
 ]
+"settings.py" = [
+    "S105",   # Permite hardcoded passwords em settings
+    "S106",   # Permite hardcoded passwords em settings
+]
 "manage.py" = [
     "T201",   # Permite print no manage.py
+]
+"**/migrations/**/*.py" = [
+    "E501",   # Migrations podem ter linhas longas
+    "N806",   # Migrations podem ter nomes não-convencionais
 ]
 
 [tool.ruff.lint.mccabe]
@@ -107,11 +117,37 @@ section-order = [
     "local-folder"
 ]
 
-
-
 [tool.ruff.format]
 # Configuração do formatter
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
+
+[tool.pyright]
+# Ajuste para seus diretórios reais
+include = ["projeto_carros"]  # ou ["src", "apps"] se for sua estrutura
+exclude = ["**/migrations", "venv", ".venv", "static", "media"]
+
+# Corrigido para Python 3.13
+pythonVersion = "3.13"
+typeCheckingMode = "basic"
+
+# Django específico
+reportMissingImports = true
+reportMissingTypeStubs = false
+reportGeneralTypeIssues = true
+reportIncompatibleMethodOverride = true
+reportIncompatibleVariableOverride = true
+reportDuplicateImport = true
+
+# Ignorar alguns warnings comuns do Django
+reportAttributeAccessIssue = false
+reportUnknownMemberType = false
+reportUnknownArgumentType = false
+reportUnknownVariableType = false
+
+# Adicional: configurações úteis para Django
+reportOptionalMemberAccess = true
+reportOptionalCall = true
+reportUnusedImport = true

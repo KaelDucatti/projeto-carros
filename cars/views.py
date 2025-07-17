@@ -19,11 +19,11 @@ class CarsListView(ListView):
     context_object_name = "cars"
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by("brand__name")
+        queryset = super().get_queryset()
         search = self.request.GET.get("search")
         if search:
             queryset = queryset.filter(model__icontains=search)
-        return queryset
+        return queryset.order_by("brand__name")
 
 
 class CarsDetailView(DetailView):
@@ -70,7 +70,7 @@ class UpdateCarView(UpdateView):
         return context
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy("car_detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("car_detail", kwargs={"pk": self.object.pk})  # type: ignore
 
 
 @method_decorator(login_required(login_url="login"), name="dispatch")
@@ -85,7 +85,7 @@ class DeleteCarView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["car"] = self.object
+        context["car"] = self.object  # type: ignore
         return context
 
 
