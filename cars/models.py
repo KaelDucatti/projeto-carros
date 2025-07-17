@@ -23,7 +23,7 @@ class Car(models.Model):
         return f"{self.brand} {self.model} ({self.factory_year})"
 
 
-class CarInvertory(models.Model):
+class CarInventory(models.Model):
     """
     Model of CarInventory table
     """
