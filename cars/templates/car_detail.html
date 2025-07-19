@@ -91,6 +91,9 @@
         <p><strong>Ano do modelo:</strong> {{ car.model_year }}</p>
         <p><strong>Placa:</strong> {{ car.plate }}</p> 
         <p><strong>Preço:</strong> R$ {{ car.price }}</p>
+        {% if car.bio %}
+          <p><strong>Bio:</strong> {{ car.bio }}</p>
+        {% endif %}
     </div>
     
     {% if user.is_authenticated %}

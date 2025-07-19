@@ -16,6 +16,7 @@ class CarForm(forms.ModelForm):
             "factory_year",
             "plate",
             "image",
+            "bio",
         ]
 
     def clean_price(self):
