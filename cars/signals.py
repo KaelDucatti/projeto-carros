@@ -1,5 +1,5 @@
 from django.db.models import Sum
-from django.db.models.signals import post_delete, post_save
+from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
 
 from .models import Car, CarInventory
@@ -19,3 +19,9 @@ def car_post_save(sender, instance, **kwargs):
 @receiver(post_delete, sender=Car)
 def car_post_delete(sender, instance, **kwargs):
     car_invenroty_update()
+
+
+@receiver(pre_save, sender=Car)
+def car_pre_save(sender, instance, **kwargs):
+    if not instance.bio:
+        instance.bio = "Sem bio."
