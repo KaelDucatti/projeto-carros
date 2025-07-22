@@ -13,6 +13,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "dotenv>=0.9.9",
     "pyright>=1.1.403",
     "ruff>=0.12.2",
 ]
