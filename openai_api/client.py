@@ -21,7 +21,7 @@ def get_openai_key():
 
     # Se estiver na EC2 (produção), busca do Parameter Store
     try:
-        ssm = boto3.client("ssm")
+        ssm = boto3.client("ssm", region_name="us-east-1")
         response = ssm.get_parameter(
             Name="/projeto-carros/OPENAI_API_KEY", WithDecryption=True
         )
